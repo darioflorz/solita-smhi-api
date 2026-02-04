@@ -1,6 +1,5 @@
 using System.Net;
 using System.Net.Http.Json;
-using FluentAssertions;
 using SmhiApi.Infrastructure.Clients.Smhi;
 
 namespace SmhiApi.Tests.Infrastructure.Clients.Smhi;
@@ -27,10 +26,10 @@ public class SmhiClientTests
         var result = await client.GetStationsAsync(1, CancellationToken.None);
 
         // Assert
-        result.Should().NotBeNull();
-        result.Station.Should().HaveCount(2);
-        result.Station[0].Key.Should().Be("123");
-        result.Station[0].Name.Should().Be("Stockholm");
+        Assert.NotNull(result);
+        Assert.Equal(2, result.Station.Length);
+        Assert.Equal("123", result.Station[0].Key);
+        Assert.Equal("Stockholm", result.Station[0].Name);
     }
 
     [Fact]
@@ -49,8 +48,8 @@ public class SmhiClientTests
         var result = await client.GetStationsAsync(1, CancellationToken.None);
 
         // Assert
-        result.Should().NotBeNull();
-        result.Station.Should().BeEmpty();
+        Assert.NotNull(result);
+        Assert.Empty(result.Station);
     }
 
     [Fact]
@@ -79,7 +78,7 @@ public class SmhiClientTests
         await client.GetStationsAsync(1, CancellationToken.None);
 
         // Assert
-        requestedUri.Should().Be("https://smhi/api/version/latest/parameter/1.json");
+        Assert.Equal("https://smhi/api/version/latest/parameter/1.json", requestedUri);
     }
 
     [Fact]
@@ -108,7 +107,7 @@ public class SmhiClientTests
         await client.GetStationsAsync(21, CancellationToken.None);
 
         // Assert
-        requestedUri.Should().Be("https://smhi/api/version/latest/parameter/21.json");
+        Assert.Equal("https://smhi/api/version/latest/parameter/21.json", requestedUri);
     }
 
     [Fact]
@@ -132,10 +131,10 @@ public class SmhiClientTests
         var result = await client.GetStationObservationsAsync(1, "123", "latest-hour", CancellationToken.None);
 
         // Assert
-        result.Should().NotBeNull();
-        result.Station.Key.Should().Be("123");
-        result.Value.Should().HaveCount(2);
-        result.Value[0].Value.Should().Be("5.2");
+        Assert.NotNull(result);
+        Assert.Equal("123", result.Station.Key);
+        Assert.Equal(2, result.Value.Length);
+        Assert.Equal("5.2", result.Value[0].Value);
     }
 
     [Fact]
@@ -168,7 +167,7 @@ public class SmhiClientTests
         await client.GetStationObservationsAsync(1, "123", "latest-hour", CancellationToken.None);
 
         // Assert
-        requestedUri.Should().Be("https://smhi/api/version/latest/parameter/1/station/123/period/latest-hour/data.json");
+        Assert.Equal("https://smhi/api/version/latest/parameter/1/station/123/period/latest-hour/data.json", requestedUri);
     }
 
     [Fact]
@@ -201,7 +200,7 @@ public class SmhiClientTests
         await client.GetStationObservationsAsync(21, "456", "latest-day", CancellationToken.None);
 
         // Assert
-        requestedUri.Should().Be("https://smhi/api/version/latest/parameter/21/station/456/period/latest-day/data.json");
+        Assert.Equal("https://smhi/api/version/latest/parameter/21/station/456/period/latest-day/data.json", requestedUri);
     }
 
     [Fact]
@@ -217,11 +216,8 @@ public class SmhiClientTests
         };
         var client = new SmhiClient(httpClient);
 
-        // Act
-        var act = () => client.GetStationsAsync(1, CancellationToken.None);
-
-        // Assert
-        await act.Should().ThrowAsync<HttpRequestException>();
+        // Act & Assert
+        await Assert.ThrowsAsync<HttpRequestException>(() => client.GetStationsAsync(1, CancellationToken.None));
     }
 
     [Fact]
@@ -241,7 +237,7 @@ public class SmhiClientTests
         var result = await client.GetStationObservationsAsync(1, "nonexistent", "latest-hour", CancellationToken.None);
 
         // Assert
-        result.Should().BeNull();
+        Assert.Null(result);
     }
 
     private HttpClient CreateMockHttpClient<T>(T response)

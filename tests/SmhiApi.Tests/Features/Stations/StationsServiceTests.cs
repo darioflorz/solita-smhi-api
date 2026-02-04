@@ -1,4 +1,3 @@
-using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using SmhiApi.Features.Stations;
@@ -37,9 +36,9 @@ public class StationsServiceTests
         var result = await _sut.GetAllAsync(CancellationToken.None);
 
         // Assert
-        result.Should().HaveCount(2);
-        result.Should().Contain(s => s.StationId == "1" && s.Name == "Stockholm Temp");
-        result.Should().Contain(s => s.StationId == "2" && s.Name == "Göteborg Wind");
+        Assert.Equal(2, result.Length);
+        Assert.Contains(result, s => s.StationId == "1" && s.Name == "Stockholm Temp");
+        Assert.Contains(result, s => s.StationId == "2" && s.Name == "Göteborg Wind");
     }
 
     [Fact]
@@ -62,8 +61,8 @@ public class StationsServiceTests
         var result = await _sut.GetAllAsync(CancellationToken.None);
 
         // Assert
-        result.Should().HaveCount(1);
-        result[0].StationId.Should().Be("1");
+        Assert.Single(result);
+        Assert.Equal("1", result[0].StationId);
     }
 
     [Fact]
@@ -86,8 +85,8 @@ public class StationsServiceTests
         var result = await _sut.GetAllAsync(CancellationToken.None);
 
         // Assert
-        result.Should().HaveCount(1);
-        result[0].Name.Should().Be("Stockholm Temp Name");
+        Assert.Single(result);
+        Assert.Equal("Stockholm Temp Name", result[0].Name);
     }
 
     [Fact]
@@ -101,6 +100,6 @@ public class StationsServiceTests
         var result = await _sut.GetAllAsync(CancellationToken.None);
 
         // Assert
-        result.Should().BeEmpty();
+        Assert.Empty(result);
     }
 }

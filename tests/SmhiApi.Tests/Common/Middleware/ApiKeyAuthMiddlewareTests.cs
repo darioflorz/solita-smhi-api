@@ -40,8 +40,8 @@ public class ApiKeyAuthMiddlewareTests
         await _middleware.InvokeAsync(context, _configuration);
 
         // Assert
-        context.Response.StatusCode.Should().Be(StatusCodes.Status401Unauthorized);
-        _nextWasCalled.Should().BeFalse();
+        Assert.Equal(StatusCodes.Status401Unauthorized, context.Response.StatusCode);
+        Assert.False(_nextWasCalled);
     }
 
     [Fact]
@@ -55,8 +55,8 @@ public class ApiKeyAuthMiddlewareTests
         await _middleware.InvokeAsync(context, _configuration);
 
         // Assert
-        context.Response.StatusCode.Should().Be(StatusCodes.Status403Forbidden);
-        _nextWasCalled.Should().BeFalse();
+        Assert.Equal(StatusCodes.Status403Forbidden, context.Response.StatusCode);
+        Assert.False(_nextWasCalled);
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class ApiKeyAuthMiddlewareTests
         await _middleware.InvokeAsync(context, _configuration);
 
         // Assert
-        _nextWasCalled.Should().BeTrue();
+        Assert.True(_nextWasCalled);
     }
 
     [Theory]
@@ -86,7 +86,7 @@ public class ApiKeyAuthMiddlewareTests
         await _middleware.InvokeAsync(context, _configuration);
 
         // Assert
-        _nextWasCalled.Should().BeTrue();
+        Assert.True(_nextWasCalled);
     }
 
     [Theory]
@@ -104,7 +104,7 @@ public class ApiKeyAuthMiddlewareTests
         await _middleware.InvokeAsync(context, _configuration);
 
         // Assert
-        _nextWasCalled.Should().BeTrue();
+        Assert.True(_nextWasCalled);
     }
 
     [Fact]
@@ -122,8 +122,8 @@ public class ApiKeyAuthMiddlewareTests
         await _middleware.InvokeAsync(context, emptyConfig);
 
         // Assert
-        context.Response.StatusCode.Should().Be(StatusCodes.Status403Forbidden);
-        _nextWasCalled.Should().BeFalse();
+        Assert.Equal(StatusCodes.Status403Forbidden, context.Response.StatusCode);
+        Assert.False(_nextWasCalled);
     }
 
     private static DefaultHttpContext CreateHttpContext(string path)
