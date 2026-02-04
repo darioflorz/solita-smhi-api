@@ -91,3 +91,5 @@ secrets.json
 *.log
 *.tmp
 *.temp
+
+/scripts
