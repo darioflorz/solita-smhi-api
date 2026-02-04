@@ -1,4 +1,5 @@
 using Scalar.AspNetCore;
+using SmhiApi.Common.Middleware;
 using SmhiApi.Features.Stations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// API key authentication
+app.UseApiKeyAuth();
+
 // Map endpoints
 app.MapStationsEndpoints();
 
 app.Run();
+
+// Required for integration tests with WebApplicationFactory
+public partial class Program { }
