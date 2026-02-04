@@ -1,0 +1,6 @@
+@SmhiApi_HostAddress = http://localhost:5188
+
+GET {{SmhiApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
