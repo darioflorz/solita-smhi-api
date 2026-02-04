@@ -384,6 +384,7 @@ observations: []
 * Do not iterate over full station catalog during observation calls.
 * Use only stations returned from SMHI observation payload.
 * Use dictionary lookups for merges.
+* Enable HTTP compression (gzip/deflate) for SMHI API calls to reduce payload size and improve cold-start latency.
 
 ---
 

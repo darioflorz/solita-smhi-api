@@ -1,11 +1,13 @@
 using Scalar.AspNetCore;
 using SmhiApi.Common.Middleware;
 using SmhiApi.Features.Stations;
+using SmhiApi.Infrastructure.Clients.Smhi;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddOpenApi();
+builder.Services.AddSmhiClient(builder.Configuration);
 builder.Services.AddScoped<IStationsService, StationsService>();
 
 var app = builder.Build();

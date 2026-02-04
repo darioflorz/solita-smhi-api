@@ -8,7 +8,8 @@
                 "ms-dotnettools.csdevkit",
                 "ms-dotnettools.vscode-dotnet-runtime",
                 "humao.rest-client",
-                "openai.chatgpt"
+                "openai.chatgpt",
+                "hbenl.vscode-test-explorer"
             ],
             "settings": {
                 "dotnet.defaultSolution": "disable"
