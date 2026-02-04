@@ -12,8 +12,4 @@
     <PackageReference Include="Scalar.AspNetCore" Version="2.12.32" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infrastructure\SmhiClient\" />
-  </ItemGroup>
-
 </Project>

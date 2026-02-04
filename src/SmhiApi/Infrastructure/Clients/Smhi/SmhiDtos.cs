@@ -85,3 +85,27 @@ public class SmhiObservationValue
     [JsonPropertyName("quality")]
     public string? Quality { get; set; }
 }
+
+/// <summary>
+/// Response from SMHI station-set endpoint containing observations for all stations
+/// </summary>
+public class SmhiStationSetResponse
+{
+    [JsonPropertyName("station")]
+    public SmhiStationSetStation[] Station { get; set; } = Array.Empty<SmhiStationSetStation>();
+}
+
+/// <summary>
+/// Station with observations from station-set endpoint
+/// </summary>
+public class SmhiStationSetStation
+{
+    [JsonPropertyName("key")]
+    public string Key { get; set; } = string.Empty;
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("value")]
+    public SmhiObservationValue[] Value { get; set; } = Array.Empty<SmhiObservationValue>();
+}

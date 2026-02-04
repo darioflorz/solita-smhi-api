@@ -1,6 +1,7 @@
 using Scalar.AspNetCore;
 using SmhiApi.Common.Middleware;
 using SmhiApi.Features.Stations;
+using SmhiApi.Features.StationObservations;
 using SmhiApi.Infrastructure.Clients.Smhi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddSmhiClient(builder.Configuration);
 builder.Services.AddScoped<IStationsService, StationsService>();
+builder.Services.AddScoped<IStationObservationsService, StationObservationsService>();
 
 var app = builder.Build();
 
@@ -26,6 +28,7 @@ app.UseApiKeyAuth();
 
 // Map endpoints
 app.MapStationsEndpoints();
+app.MapStationObservationsEndpoints();
 
 app.Run();
 

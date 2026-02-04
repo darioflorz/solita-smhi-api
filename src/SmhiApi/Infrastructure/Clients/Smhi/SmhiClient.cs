@@ -46,4 +46,19 @@ public class SmhiClient : ISmhiClient
 
         return await response.Content.ReadFromJsonAsync<SmhiObservationResponse>(cancellationToken);
     }
+
+    /// <inheritdoc />
+    public async Task<SmhiStationSetResponse> GetObservationAllStationsAsync(
+        int parameterId,
+        string period,
+        CancellationToken cancellationToken)
+    {
+        var endpoint = $"api/version/1.0/parameter/{parameterId}/station-set/all/period/{period}/data.json";
+        var response = await _httpClient.GetAsync(endpoint, cancellationToken);
+
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadFromJsonAsync<SmhiStationSetResponse>(cancellationToken);
+        return result ?? new SmhiStationSetResponse();
+    }
 }
