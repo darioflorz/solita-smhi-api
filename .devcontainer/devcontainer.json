@@ -1,0 +1,21 @@
+{
+    "name": "Solita SMHI API",
+    "image": "mcr.microsoft.com/devcontainers/dotnet:1-10.0",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.csharp",
+                "ms-dotnettools.csdevkit",
+                "ms-dotnettools.vscode-dotnet-runtime",
+                "humao.rest-client",
+                "openai.chatgpt"
+            ],
+            "settings": {
+                "dotnet.defaultSolution": "disable"
+            }
+        }
+    },
+    "forwardPorts": [5000, 5001],
+    //"postCreateCommand": "dotnet restore",
+    "remoteUser": "vscode"
+}
